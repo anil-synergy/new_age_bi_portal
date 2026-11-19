@@ -1,0 +1,134 @@
+.reports {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__title {
+    color: $c-grey-600;
+  }
+
+  &__control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+
+    .input-item {
+      width: 18.5rem;
+    }
+  }
+}
+
+.reports-table {
+  margin-top: 1rem;
+  color: $c-grey-800;
+  --table-body-height: calc(100vh - 14rem);
+  --pd-inline: 1rem;
+  --min-width: 42rem;
+  max-height: var(--table-height);
+  min-width: var(--min-width);
+  @extend .font-sm;
+
+  .custom-scroll {
+    overflow-y: scroll;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar-thumb {
+      background: $c-grey-200;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: $c-grey-400;
+    }
+  }
+
+  // --grid-columns: 2.5rem minmax(6.5rem, 0.5fr) repeat(2, minmax(6.5rem, 0.5fr)) minmax(6.5rem, 1fr) 5rem;
+  --grid-columns: 2.5rem minmax(6.5rem, 1fr) minmax(5rem, 10rem) minmax(3rem, 0.3fr) minmax(3rem, 6rem)  5rem;
+  // Setting up of grid columns // modify this property to change the grid
+
+  &.user-table {
+    --grid-columns: 2.5rem minmax(6.5rem, 0.25fr) minmax(6.5rem, 0.4fr) minmax(6.5rem, 0.7fr) 5rem;
+  }
+  &.user-groups-table{
+  --grid-columns: 2.5rem minmax(6.5rem, 1fr) minmax(5rem, 10rem) minmax(3rem, 0.3fr) minmax(3rem, 6rem)  5rem;
+
+  }
+  &__head {
+    background-color: $c-grey-100;
+    padding-right: var(--custom-scroll-bar-width);
+
+    @extend .f-bold;
+  }
+
+  &__body {
+    height: var(--table-body-height);
+    padding-bottom: 3rem;
+  }
+
+  &__row {
+    display: flex;
+    grid-template-columns: var(--grid-columns);
+    display: grid;
+    gap: 1.5rem;
+    align-items: center;
+    padding-inline: 1rem;
+    padding-block: 0.8rem;
+    border-bottom: 1px solid $c-grey-200;
+    transition: all 0.1s ease;
+
+    &:hover:not(.reports-table__row--head) {
+      background-color: $c-grey-50;
+
+      .table-action {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    &--head {
+      padding-block: 1rem;
+    }
+  }
+
+  &__cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    // grid-template-columns: minmax(auto, 80%) min-content;
+    gap: 0.5rem;
+    align-items: center;
+
+    &.context-menu-wrap,
+    .context-menu-wrap,
+    &:has(.context-menu-wrap) {
+      overflow: visible;
+
+      .context-menu {
+        right: 0; //specifically for the context menu on row > ellipsis
+      }
+    }
+  }
+
+  .truncate-more {
+    color: $c-primary-800;
+    @extend .f-semi;
+  }
+  .table-action {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+
+    &__button {
+      padding: 0.2rem 0.4rem;
+      opacity: 0.65;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}

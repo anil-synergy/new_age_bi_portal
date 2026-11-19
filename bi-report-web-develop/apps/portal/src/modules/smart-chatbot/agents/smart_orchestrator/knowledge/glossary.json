@@ -1,0 +1,24 @@
+{
+  "version": "2026-11-01.1",
+  "note": "Reviewed business terminology. Change only through scripts/apply_learning.py after an evaluation run and approval.",
+  "terms": [
+    {"term": "injury", "domain": "QHSE", "synonyms": ["lti", "lost time injury", "lost time injuries", "injured", "hurt", "medical treatment case", "mtc", "first aid case", "restricted work case", "rwc"]},
+    {"term": "incident", "domain": "QHSE", "synonyms": ["near miss", "near misses", "accident", "occurrence", "dangerous occurrence"]},
+    {"term": "safety", "domain": "QHSE", "synonyms": ["hse", "qhse", "hsse"]},
+    {"term": "audit", "domain": "QHSE", "synonyms": ["internal audit", "external audit", "audit finding", "non conformity", "nc"]},
+    {"term": "inspection", "domain": "QHSE", "synonyms": ["vetting", "sire", "psc", "port state control", "flag state inspection"]},
+    {"term": "purchase requisition", "domain": "Procurement", "synonyms": ["pr", "requisition", "purchase request"]},
+    {"term": "purchase order", "domain": "Procurement", "synonyms": ["po", "purchase orders"]},
+    {"term": "spend", "domain": "Procurement", "synonyms": ["expenditure", "procurement cost", "purchase value"]},
+    {"term": "vendor", "domain": "Procurement", "synonyms": ["supplier", "suppliers"]},
+    {"term": "work order", "domain": "Technical", "synonyms": ["wo", "job order", "maintenance job", "pms job", "planned maintenance"]},
+    {"term": "spare part", "domain": "Technical", "synonyms": ["spares", "ship parts", "parts", "spare parts inventory"]},
+    {"term": "emission", "domain": "Environment", "synonyms": ["co2", "co", "carbon emission", "ghg", "greenhouse gas", "co emissions"]},
+    {"term": "carbon credit", "domain": "Environment", "synonyms": ["eua", "emission allowance", "ets", "eu ets", "carbon allowance"]},
+    {"term": "fuel consumption", "domain": "Environment", "synonyms": ["bunker consumption", "foc", "fuel oil consumption"]},
+    {"term": "vessel", "domain": "Fleet", "synonyms": ["ship", "ships"]},
+    {"term": "voyage", "domain": "Fleet", "synonyms": ["passage", "voyage leg", "port call"]},
+    {"term": "crew", "domain": "Crewing", "synonyms": ["seafarer", "seafarers", "crew member"]},
+    {"term": "license", "domain": "IT", "synonyms": ["licence", "licenses", "licences", "licensing", "subscription", "seat"]}
+  ]
+}

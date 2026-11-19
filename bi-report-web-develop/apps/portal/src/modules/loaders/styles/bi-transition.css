@@ -1,0 +1,294 @@
+/* BI loader + liquid page transition (adapted from assets/bi-transition-react). */
+
+.bi-transition-root {
+  position: relative;
+  height: 100%;
+  min-height: 0;
+  isolation: isolate;
+}
+
+.bi-transition-content {
+  height: 100%;
+  min-height: 0;
+  transition: opacity 320ms ease, filter 320ms ease;
+}
+
+.bi-transition-content--enter {
+  animation: bi-liquid-in 200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.bi-transition-content--covered {
+  opacity: 0.35;
+  filter: blur(3px);
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes bi-liquid-in {
+  0%   { opacity: 0; filter: blur(4px); transform: translateY(4px); }
+  60%  { opacity: 1; filter: blur(1px); }
+  100% { opacity: 1; filter: none; transform: none; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Overlay                                                             */
+/* ------------------------------------------------------------------ */
+
+.bi-loader {
+  --bi-step: 0.55s;
+  --bi-loop: calc(var(--bi-step) * 4);
+  --bi-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  z-index: 40;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 0;
+  padding: 16px;
+  overflow: hidden;
+  color: #fff;
+  background: linear-gradient(160deg, #262a52 0%, #333869 46%, #8b90b8 100%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 160ms ease, visibility 160ms ease;
+}
+
+.bi-loader--fullscreen { position: fixed; inset: 0; z-index: 99999; }
+.bi-loader--contained  { position: absolute; inset: 0; }
+.bi-loader--inline     { position: relative; width: 100%; height: 100%; min-height: 260px; }
+
+.bi-loader--visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Original bi-transition-react scene, used for the QHSE folder and its reports. */
+.bi-loader--classic {
+  --bi-step: 1.5s;
+  gap: 26px;
+  color: #fff;
+  background: #000;
+}
+.bi-loader--classic .bi-loader__scene {
+  width: min(62vw, 220px);
+}
+.bi-loader--classic.bi-loader--contained .bi-loader__scene,
+.bi-loader--classic.bi-loader--inline .bi-loader__scene {
+  width: min(78%, 180px);
+}
+
+/* Liquid blobs drifting behind the scene */
+.bi-loader__blob {
+  position: absolute;
+  width: 46vmin;
+  height: 46vmin;
+  max-width: 420px;
+  max-height: 420px;
+  border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%;
+  filter: blur(38px);
+  opacity: 0.45;
+  animation: bi-blob 9s ease-in-out infinite alternate;
+}
+.bi-loader__blob--a { background: #2ec4d6; left: 18%; top: 14%; }
+.bi-loader__blob--b { background: #6c63ff; right: 16%; bottom: 12%; animation-delay: -4.5s; animation-duration: 11s; }
+
+@keyframes bi-blob {
+  0%   { border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; transform: translate(0, 0) scale(1); }
+  50%  { border-radius: 63% 37% 38% 62% / 55% 61% 39% 45%; transform: translate(6%, -5%) scale(1.08); }
+  100% { border-radius: 36% 64% 52% 48% / 62% 38% 62% 38%; transform: translate(-5%, 6%) scale(0.95); }
+}
+
+.bi-loader__scene {
+  position: relative;
+  width: min(28vmin, 132px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+
+.bi-loader--inline .bi-loader__scene { width: min(40vmin, 150px); }
+
+.bi-loader__ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.bi-loader__ring--outer { inset: 0; }
+.bi-loader__ring--mid   { inset: 11%; border-color: rgba(255, 255, 255, 0.18); }
+.bi-loader__ring--spin {
+  inset: 4%;
+  border: 1px dashed rgba(255, 255, 255, 0.38);
+  animation: bi-spin 16s linear infinite;
+}
+
+.bi-loader__icons {
+  position: absolute;
+  inset: 15%;
+  width: 70%;
+  height: 70%;
+  overflow: visible;
+  filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.45));
+}
+
+.bi-icon {
+  opacity: 0;
+  transform-box: view-box;
+  transform-origin: 60px 60px;
+  animation: bi-stage var(--bi-loop) var(--bi-ease) infinite both;
+  animation-delay: calc(var(--i) * var(--bi-step));
+}
+
+.bi-icon > * {
+  fill: rgba(255, 255, 255, 0);
+  stroke: #fff;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation:
+    bi-draw var(--bi-loop) cubic-bezier(0.65, 0, 0.35, 1) infinite both,
+    bi-fill var(--bi-loop) ease infinite both;
+  animation-delay: calc(var(--i) * var(--bi-step));
+}
+
+@keyframes bi-stage {
+  0%   { opacity: 0; transform: scale(0.78) rotate(-8deg); }
+  5%   { opacity: 1; transform: scale(1) rotate(0deg); }
+  20%  { opacity: 1; transform: scale(1) rotate(0deg); }
+  25%  { opacity: 0; transform: scale(1.22) rotate(6deg); }
+  100% { opacity: 0; transform: scale(1.22) rotate(6deg); }
+}
+
+@keyframes bi-draw {
+  0%   { stroke-dashoffset: 1; }
+  11%  { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes bi-fill {
+  0%, 9%  { fill: rgba(255, 255, 255, 0); }
+  14%     { fill: rgba(255, 255, 255, 0.09); }
+  20%     { fill: rgba(255, 255, 255, 0.09); }
+  25%, 100% { fill: rgba(255, 255, 255, 0); }
+}
+
+.bi-icon > :nth-child(2) { animation-delay: calc(var(--i) * var(--bi-step) + 70ms); }
+.bi-icon > :nth-child(3) { animation-delay: calc(var(--i) * var(--bi-step) + 140ms); }
+.bi-icon > :nth-child(4) { animation-delay: calc(var(--i) * var(--bi-step) + 210ms); }
+.bi-icon > :nth-child(5) { animation-delay: calc(var(--i) * var(--bi-step) + 280ms); }
+.bi-icon > :nth-child(6) { animation-delay: calc(var(--i) * var(--bi-step) + 350ms); }
+
+.bi-loader__dust {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  margin: -1.5px 0 0 -1.5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+  opacity: 0;
+  animation: bi-dust var(--bi-step) ease-out infinite;
+}
+.bi-loader__dust--a { --dx: -88px; --dy: -52px; }
+.bi-loader__dust--b { --dx:  74px; --dy: -78px; animation-delay: 40ms; }
+.bi-loader__dust--c { --dx:  96px; --dy:  36px; animation-delay: 80ms; }
+.bi-loader__dust--d { --dx: -64px; --dy:  84px; animation-delay: 20ms; }
+.bi-loader__dust--e { --dx:  10px; --dy: -100px; animation-delay: 60ms; }
+.bi-loader__dust--f { --dx: -100px; --dy: 12px; animation-delay: 100ms; }
+
+@keyframes bi-dust {
+  0%, 76% { opacity: 0; translate: 0 0; scale: 1; }
+  80%     { opacity: 1; }
+  100%    { opacity: 0; translate: var(--dx) var(--dy); scale: 0.4; }
+}
+
+.bi-loader__captions {
+  position: relative;
+  width: 200px;
+  height: 20px;
+}
+
+.bi-loader__caption {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  color: #fff;
+  font: 500 13px/20px Inter, ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.06em;
+  text-align: center;
+  animation: bi-caption var(--bi-loop) var(--bi-ease) infinite both;
+  animation-delay: calc(var(--i) * var(--bi-step));
+}
+
+@keyframes bi-caption {
+  0%   { opacity: 0; transform: translateY(8px); }
+  5%   { opacity: 1; transform: translateY(0); }
+  20%  { opacity: 1; transform: translateY(0); }
+  25%  { opacity: 0; transform: translateY(-8px); }
+  100% { opacity: 0; transform: translateY(-8px); }
+}
+
+.bi-loader__steps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: -6px;
+}
+
+.bi-loader__step {
+  height: 2px;
+  width: 6px;
+  border-radius: 2px;
+  background: #fff;
+  opacity: 0.25;
+  animation: bi-step var(--bi-loop) var(--bi-ease) infinite both;
+  animation-delay: calc(var(--i) * var(--bi-step));
+}
+
+@keyframes bi-step {
+  0%   { width: 6px;  opacity: 0.25; }
+  4%   { width: 26px; opacity: 1; }
+  22%  { width: 26px; opacity: 1; }
+  27%  { width: 6px;  opacity: 0.25; }
+  100% { width: 6px;  opacity: 0.25; }
+}
+
+.bi-loader__label {
+  position: relative;
+  font: 400 12px/16px Inter, ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.65);
+  text-align: center;
+}
+
+@keyframes bi-spin { to { rotate: 360deg; } }
+
+@media (max-width: 480px) {
+  .bi-loader__caption { font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bi-loader *,
+  .bi-loader *::before,
+  .bi-loader *::after,
+  .bi-transition-content--enter {
+    animation: none !important;
+  }
+  .bi-loader__dust,
+  .bi-loader__ring--spin { display: none; }
+
+  .bi-icon:first-child { opacity: 1; }
+  .bi-icon:first-child > * { stroke-dashoffset: 0; }
+  .bi-loader__caption:first-child { opacity: 1; }
+  .bi-loader__step:first-child { width: 26px; opacity: 1; }
+
+  .bi-transition-content,
+  .bi-loader { transition-duration: 0.01ms !important; }
+}

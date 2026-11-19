@@ -1,0 +1,104 @@
+.reviewer-modal .reviewer-close-btns {
+    align-items: flex-start;
+    border-radius: 16px;
+    width: 78px;
+    height: 26px;
+    padding: 0 5px;
+    margin-right: 5px;
+    background-color: #868DCD;
+    font-style: normal;
+    color: #FFFFFF;
+    font-size: 10px;
+}
+.reviewer-modal .reviewer-close-btns div {
+    justify-content: flex-start;
+}
+.reviewer-modal .reviewer-close-btns div::after {
+    justify-content: end;
+    margin-left: 10px;
+    content: 'x';  
+    font-family: 'Mulish';
+  }
+  .reviewer-modal .reviewer-close-btns:hover {
+    box-shadow: unset;
+}
+.reviewer-modal .select-multi-val .css-1s2u09g-control {
+    border-block-start: none;
+    border-left: none;
+    border-right: none;
+}
+.reviewer-modal .select-multi-val .css-1s2u09g-control:hover {
+    box-shadow: unset;
+}
+.revi-down .css-tlfecz-indicatorContainer:nth-child(1) {
+    display: none;
+  } 
+  .revi-down .css-tlfecz-indicatorContainer svg path {
+    d: path('m18.9 20.3-5.6-5.6q-.75.6-1.725.95Q10.6 16 9.5 16q-2.725 0-4.612-1.887Q3 12.225 3 9.5q0-2.725 1.888-4.613Q6.775 3 9.5 3t4.613 1.887Q16 6.775 16 9.5q0 1.1-.35 2.075-.35.975-.95 1.725l5.625 5.625q.275.275.275.675t-.3.7q-.275.275-.7.275-.425 0-.7-.275ZM9.5 14q1.875 0 3.188-1.312Q14 11.375 14 9.5q0-1.875-1.312-3.188Q11.375 5 9.5 5 7.625 5 6.312 6.312 5 7.625 5 9.5q0 1.875 1.312 3.188Q7.625 14 9.5 14') !important;
+  }
+  .revi-down .css-tlfecz-indicatorContainer svg{
+    width: 12px !important;
+    height: 12px !important;
+  }
+.reviewer-modal .select-multi-val .css-1hb7zxy-IndicatorsContainer {
+    border-radius: 0;
+}
+.reviewer-modal .select-multi-val .css-1rhbuit-multiValue, .reviewer-modal .select-multi-val .css-1rhbuit-multiValue div {
+    border-radius: 16px;
+    background-color: #868DCD;
+    color: #FFFFFF;
+}
+.reviewer-modal .select-multi-val  [type=text]:focus {
+    border: unset !important;
+    --tw-ring-color: transparent;
+    --tw-ring-offset-shadow: transparent;
+    box-shadow: unset;
+}
+.reviewer-modal .select-multi-val .css-1pahdxg-control {
+    box-shadow: none;
+}
+/*second dropdown with search end**/
+.circle-small{
+    width: 32px !important;
+    font-size: 16px !important;
+  }
+  .popup-btn-confirm,
+  .popup-btn-deny{
+    font-size: 14px !important;
+    padding: 0.5rem 1.5rem !important;
+    display: grid;
+    place-content: center;
+    border-radius: 12px !important;
+    color: #4a4a4a !important;
+    box-shadow: none !important
+  }
+  
+  .popup-btn-confirm{
+    background-color:#f8b113 !important;
+  }
+  
+  .popup-btn-deny{
+    border: 1px solid #f8b113 !important;
+    background: #fff !important;
+  }
+  .react-responsive-modal-modal::-webkit-scrollbar {
+    width: 5px; 
+    height: 5px;
+  }
+  .react-responsive-modal-modal::-webkit-scrollbar-track {
+    background: #fff !important;
+    box-shadow: none;
+  }
+  .react-responsive-modal-modal::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+    box-shadow: none;
+  }
+  .react-responsive-modal-modal::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  }
+  .reviewer-modal {
+    /* height:100px;
+    min-height:240px;
+    max-height: max-content; */
+  }

@@ -1,0 +1,81 @@
+.closeticket-dialog-btn {
+    color: #C4C4C4 !important;
+    border-radius: 6px !important;
+    height: 25px;
+    background-color: transparent !important;
+    font-weight: unset !important;
+  } 
+
+  .closeticket-dialog-btn:focus {
+    outline: 1px dotted;
+    outline: 5px auto transparent !important;
+}
+  .closeticket-btn-border:focus {
+    outline: 1px dotted;
+    outline: 1px auto #4A4A4A !important;
+}
+  .closeticket-btn-border {
+    border-radius: 20px !important;
+    background: #F1F1F1 !important;
+    opacity: 0.75 !important;
+    border: 1px solid #4A4A4A !important;
+    color: #4A4A4A !important;
+  }
+.closeticket-list  [type="checkbox"] {
+  box-sizing: border-box;
+  border-radius: 6px;
+  color: #21C979;
+}
+.closeticket-list {
+  max-width: 100% !important;
+  margin-top: 15px;
+  overflow-y: auto;
+  max-height: 160px;
+  margin-bottom: 10px;
+}
+.closeticket-list label {
+  margin-left: 5px;
+  padding-top: 2px;
+}
+.checkboxdiv {
+  margin-left: 0.35rem;
+}
+.custom-row-survey {
+  max-width: unset !important;
+  width: 100%;
+}
+.custom-hr-survey {
+  width: 100%;
+  border: unset !important;
+  border-bottom: 1px dashed #4A4A4A !important;
+}
+.closeticket-modal .footer {
+  text-align: right;
+}
+.closeticket-modal .footer .btn {
+  width: 70px;
+  font-size: 10px;
+}
+.closeticket-modal .textarea-comment {
+  width: 25rem;
+}
+.closeticket-modal textarea::placeholder {
+  opacity: 0.8;
+  padding: 2px;
+}
+.react-responsive-modal-root{
+  z-index: 9999;
+}
+.react-responsive-modal-modal {
+  border-radius: 8px;
+}
+.react-responsive-modal-closeButton {
+  display: none;
+}
+.react-responsive-modal-modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -150px;
+  margin-top: -150px;
+}

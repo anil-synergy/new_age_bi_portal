@@ -1,0 +1,268 @@
+/* Scoped styles for the BI loading / transition component.
+   Monochrome: pure white on pure black. No other colours. */
+
+.bi-transition-root {
+  position: relative;
+  min-height: 100%;
+  isolation: isolate;
+}
+
+.bi-transition-content {
+  min-height: inherit;
+  transition: opacity 320ms ease, filter 320ms ease, transform 320ms ease;
+}
+
+.bi-transition-content--covered {
+  opacity: 0;
+  filter: blur(2px);
+  transform: scale(0.995);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Overlay                                                             */
+/* ------------------------------------------------------------------ */
+
+.bi-loader {
+  /* One step = how long each icon is on screen. Four steps = one loop. */
+  --bi-step: 1.5s;
+  --bi-loop: calc(var(--bi-step) * 4);
+  --bi-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 26px;
+  padding: 24px;
+  color: #fff;
+  background: #000;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 300ms ease, visibility 300ms ease;
+}
+
+.bi-loader--visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* ------------------------------------------------------------------ */
+/* Scene                                                               */
+/* ------------------------------------------------------------------ */
+
+.bi-loader__scene {
+  position: relative;
+  width: min(62vw, 240px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+
+/* Hairline rings behind the icon */
+.bi-loader__ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.bi-loader__ring--outer { inset: 0; }
+.bi-loader__ring--mid   { inset: 11%; border-color: rgba(255, 255, 255, 0.18); }
+.bi-loader__ring--spin {
+  inset: 4%;
+  border: 1px dashed rgba(255, 255, 255, 0.38);
+  animation: bi-spin 16s linear infinite;
+}
+
+/* ------------------------------------------------------------------ */
+/* Icons                                                               */
+/* ------------------------------------------------------------------ */
+
+.bi-loader__icons {
+  position: absolute;
+  inset: 15%;
+  width: 70%;
+  height: 70%;
+  overflow: visible;
+  filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.45));
+}
+
+.bi-icon {
+  opacity: 0;
+  transform-box: view-box;
+  transform-origin: 60px 60px;
+  animation: bi-stage var(--bi-loop) var(--bi-ease) infinite both;
+  animation-delay: calc(var(--i) * var(--bi-step));
+}
+
+.bi-icon > * {
+  fill: rgba(255, 255, 255, 0);
+  stroke: #fff;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation:
+    bi-draw var(--bi-loop) cubic-bezier(0.65, 0, 0.35, 1) infinite both,
+    bi-fill var(--bi-loop) ease infinite both;
+  animation-delay: calc(var(--i) * var(--bi-step));
+}
+
+/* Each icon owns one quarter of the loop:
+   0-5%   materialises (scale up, spins into place)
+   5-20%  holds
+   20-25% dissolves outward so the next shape can take over */
+@keyframes bi-stage {
+  0%   { opacity: 0; transform: scale(0.78) rotate(-8deg); }
+  5%   { opacity: 1; transform: scale(1) rotate(0deg); }
+  20%  { opacity: 1; transform: scale(1) rotate(0deg); }
+  25%  { opacity: 0; transform: scale(1.22) rotate(6deg); }
+  100% { opacity: 0; transform: scale(1.22) rotate(6deg); }
+}
+
+/* Strokes draw themselves in, one after another */
+@keyframes bi-draw {
+  0%   { stroke-dashoffset: 1; }
+  11%  { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* A faint white wash fills the shape once drawn */
+@keyframes bi-fill {
+  0%, 9%  { fill: rgba(255, 255, 255, 0); }
+  14%     { fill: rgba(255, 255, 255, 0.09); }
+  20%     { fill: rgba(255, 255, 255, 0.09); }
+  25%, 100% { fill: rgba(255, 255, 255, 0); }
+}
+
+/* Stagger strokes inside an icon so it assembles piece by piece */
+.bi-icon > :nth-child(2) { animation-delay: calc(var(--i) * var(--bi-step) + 70ms); }
+.bi-icon > :nth-child(3) { animation-delay: calc(var(--i) * var(--bi-step) + 140ms); }
+.bi-icon > :nth-child(4) { animation-delay: calc(var(--i) * var(--bi-step) + 210ms); }
+.bi-icon > :nth-child(5) { animation-delay: calc(var(--i) * var(--bi-step) + 280ms); }
+.bi-icon > :nth-child(6) { animation-delay: calc(var(--i) * var(--bi-step) + 350ms); }
+
+/* ------------------------------------------------------------------ */
+/* Dust: small bursts timed to the hand-over between icons             */
+/* ------------------------------------------------------------------ */
+
+.bi-loader__dust {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  margin: -1.5px 0 0 -1.5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+  opacity: 0;
+  animation: bi-dust var(--bi-step) ease-out infinite;
+}
+.bi-loader__dust--a { --dx: -88px; --dy: -52px; }
+.bi-loader__dust--b { --dx:  74px; --dy: -78px; animation-delay: 40ms; }
+.bi-loader__dust--c { --dx:  96px; --dy:  36px; animation-delay: 80ms; }
+.bi-loader__dust--d { --dx: -64px; --dy:  84px; animation-delay: 20ms; }
+.bi-loader__dust--e { --dx:  10px; --dy: -100px; animation-delay: 60ms; }
+.bi-loader__dust--f { --dx: -100px; --dy: 12px; animation-delay: 100ms; }
+
+@keyframes bi-dust {
+  0%, 76% { opacity: 0; translate: 0 0; scale: 1; }
+  80%     { opacity: 1; }
+  100%    { opacity: 0; translate: var(--dx) var(--dy); scale: 0.4; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Captions + step indicator                                           */
+/* ------------------------------------------------------------------ */
+
+.bi-loader__captions {
+  position: relative;
+  width: 200px;
+  height: 20px;
+}
+
+.bi-loader__caption {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  color: #fff;
+  font: 500 13px/20px Inter, ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.06em;
+  text-align: center;
+  animation: bi-caption var(--bi-loop) var(--bi-ease) infinite both;
+  animation-delay: calc(var(--i) * var(--bi-step));
+}
+
+@keyframes bi-caption {
+  0%   { opacity: 0; transform: translateY(8px); }
+  5%   { opacity: 1; transform: translateY(0); }
+  20%  { opacity: 1; transform: translateY(0); }
+  25%  { opacity: 0; transform: translateY(-8px); }
+  100% { opacity: 0; transform: translateY(-8px); }
+}
+
+.bi-loader__steps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: -6px;
+}
+
+.bi-loader__step {
+  height: 2px;
+  width: 6px;
+  border-radius: 2px;
+  background: #fff;
+  opacity: 0.25;
+  animation: bi-step var(--bi-loop) var(--bi-ease) infinite both;
+  animation-delay: calc(var(--i) * var(--bi-step));
+}
+
+@keyframes bi-step {
+  0%   { width: 6px;  opacity: 0.25; }
+  4%   { width: 26px; opacity: 1; }
+  22%  { width: 26px; opacity: 1; }
+  27%  { width: 6px;  opacity: 0.25; }
+  100% { width: 6px;  opacity: 0.25; }
+}
+
+@keyframes bi-spin { to { rotate: 360deg; } }
+
+/* ------------------------------------------------------------------ */
+/* Small screens                                                       */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 480px) {
+  .bi-loader__scene { width: min(64vw, 210px); }
+  .bi-loader__caption { font-size: 12px; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion: hold a still Power BI frame, no looping             */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  .bi-loader *,
+  .bi-loader *::before,
+  .bi-loader *::after {
+    animation: none !important;
+  }
+  .bi-loader__dust,
+  .bi-loader__ring--spin { display: none; }
+
+  .bi-icon:first-child { opacity: 1; }
+  .bi-icon:first-child > * { stroke-dashoffset: 0; }
+  .bi-loader__caption:first-child { opacity: 1; }
+  .bi-loader__step:first-child { width: 26px; opacity: 1; }
+
+  .bi-transition-content,
+  .bi-loader { transition-duration: 0.01ms !important; }
+}

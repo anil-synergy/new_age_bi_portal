@@ -1,0 +1,13 @@
+bin
+obj
+/PowerBi/PowerBIPortal.Root/obj
+/PowerBi/PowerBIPortal.Root/bin
+/PowerBi/PowerBIPortal.Services/bin
+/PowerBi/PowerBIPortal.Services/obj
+.vs
+*.suo
+PowerBi/.vscode/launch.json
+PowerBi/.vscode/tasks.json
+.vscode/launch.json
+.vscode/tasks.json
+.env.local

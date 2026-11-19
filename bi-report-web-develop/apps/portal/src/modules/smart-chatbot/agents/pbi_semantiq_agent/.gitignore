@@ -1,0 +1,4 @@
+.env
+pbi_semantic_metadata/*
+!pbi_semantic_metadata/README.md
+debug-*.log

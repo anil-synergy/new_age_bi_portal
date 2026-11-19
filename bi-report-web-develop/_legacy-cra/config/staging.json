@@ -1,0 +1,10 @@
+{
+    "authority_uri": "https://login-shore-staging.synergymarine.in",
+    "client_id": "feedback_app",
+    "redirect_uri": "https://feedback-staging.synergymarine.in/authentication/callback",
+    "silent_uri": "https://feedback-staging.synergymarine.in/authentication/silent_callback",
+    "post_logout_uri": "https://feedback-staging.synergymarine.in/logout/callback",
+    "authority_url": "https://login-shore-staging.synergymarine.in",
+    "scope": "waveapi email profile openid IdentityServerApi",
+    "feedback": "https://api-stage.synergymarine.in/feedback/v1"
+  }

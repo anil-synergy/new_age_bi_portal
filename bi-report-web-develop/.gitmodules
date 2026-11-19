@@ -1,0 +1,3 @@
+[submodule "seafarer-submodule-web"]
+	path = seafarer-submodule-web
+	url = https://github.com/Synergy-Marine-Group/seafarer-submodule-web.git

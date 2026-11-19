@@ -1,0 +1,74 @@
+{
+  "version": "2026-11-14.3",
+  "rules": [
+    {
+      "id": "vessel_count_distinct",
+      "when_concepts": ["fleet_count"],
+      "requires_concept": "vessel_identifier",
+      "aggregation": "DISTINCTCOUNT",
+      "forbid_measures": ["Type Group"],
+      "forbid_count_of": ["VESSEL_NAME", "VESSEL NAME", "Ship Name"]
+    },
+    {
+      "id": "subtype_not_visual_group",
+      "when_concepts": ["vessel_subtype"],
+      "forbid_measures": ["Type Group"],
+      "note": "Type Group is a visual grouping pattern, not a subtype slicer."
+    },
+    {
+      "id": "visual_label_not_measure",
+      "note": "Visual titles such as Fleet Size are labels; evaluate bound identifier or validated measure only."
+    }
+  ],
+  "preferred_vessel_inventory_dataset_id": "6fe28c18-151c-4b05-a696-979f0906ddee",
+  "preferred_vessel_inventory_titles": ["fleet count vessel portal"],
+  "report_title_aliases": {
+    "fleet count vessel portal": ["6fe28c18-151c-4b05-a696-979f0906ddee"],
+    "fleet count vp": ["c3837f5d-2254-4374-b9b0-ff140c67eea5"]
+  },
+  "tanker_false_friend_titles": ["maersk", "mbr", "tanker charter", "cii sdk"],
+  "vessel_count_measures": ["Count of vessels", "No of Vessels"],
+  "vessel_register_route": {
+    "dataset_id": "6fe28c18-151c-4b05-a696-979f0906ddee",
+    "report_title": "Fleet Count Vessel Portal",
+    "description": "Dump of every IMO and its attributes (type, sub type, manager/DOC, owner, handover, takeover, deadweight). Plain or generic vessel/IMO questions go here.",
+    "module_terms": ["injur", "incident", "near miss", "accident", "audit", "inspection", "certificate", "crew", "cadet", "wellbeing", "overtime", "recruit", "defect", "deviation", "drill", "claim", "budget", "emission", "cii", "maintenance", "seafarer", "sign on", "debrief", "seminar", "training"],
+    "rule": "Vessel, IMO, sub type, vessel type, manager/DOC or count-of-vessels question with no module term -> this report. A module term (for example injury, incident) -> that module's report instead."
+  },
+  "vessel_context": {
+    "vessel_master_tables": ["IMO_MASTER_LIST", "VESSEL_PARTICULARS_ACTIVE", "VESSEL_PARTICULARS"],
+    "note": "Most semantic models hold the vessel register in one of these tables. Use whichever table the model actually has; never assume a name the model does not contain.",
+    "doc_column": "MANAGER_GROUP",
+    "doc_meaning": "DOC = Document of Compliance holder. MANAGER_GROUP stores it as the full registered company name or as an acronym (for example SOMI, SMPL). Resolve a user's company term by matching it against the DISTINCT values of MANAGER_GROUP in the model, case-insensitively, including acronym and full-name forms, and filter on the exact stored value.",
+    "count_rule": "Vessel count = DISTINCT IMO in the vessel register table after the requested filters. Prefer a measure already in the model or on the report that returns this value over writing new DAX.",
+    "date_columns": ["HANDOVER_DATE", "TAKEOVER_DATE"],
+    "weight_columns": ["DWT", "DEADWEIGHT"]
+  },
+  "vessel_dimension_table": {
+    "table_names": ["IMO_MASTER_LIST", "IMO Master List", "VESSEL_PARTICULARS_ACTIVE", "VESSEL_PARTICULARS", "VESSEL_MASTER", "Dim_Vessel"],
+    "priority_columns": [
+      "IMO",
+      "IMO_NUMBER",
+      "VESSEL_NAME",
+      "MANAGER_GROUP",
+      "DOC",
+      "VESSEL_TYPE",
+      "SUB_TYPE",
+      "OWNER",
+      "HANDOVER_DATE",
+      "TAKEOVER_DATE",
+      "TECH_MANAGER"
+    ],
+    "columns_by_concept": {
+      "vessel_identifier": ["IMO", "IMO_NUMBER", "IMO_NO", "VESSEL_IMO"],
+      "vessel_deadweight": ["DWT", "DEADWEIGHT", "DEAD_WEIGHT", "DEADWEIGHT_TONNES"],
+      "manager_company": ["DOC", "Doc.Short Name", "SHIP_MANAGEMENT_COMPANY_NAME", "MANAGER_GROUP", "TECH_MANAGER", "MANAGER"],
+      "vessel_type": ["VESSEL_TYPE", "TYPE", "VESSEL_CATEGORY"],
+      "vessel_subtype": ["VESSEL_SUB_CATEGORY", "VESSEL_SUBTYPE", "SUB_TYPE", "VESSEL_SUB_TYPE", "VESSEL_SIZE"],
+      "owner_company": ["OWNER", "OWNER_NAME", "REGISTERED_OWNER"],
+      "vessel_name": ["VESSEL_NAME", "SHIP_NAME", "VESSEL", "NAME"],
+      "vessel_handover_date": ["HANDOVER_DATE", "DATE_OF_HANDOVER", "HANDOVER"],
+      "vessel_takeover_date": ["TAKEOVER_DATE", "DATE_OF_TAKEOVER", "TAKEOVER"]
+    }
+  }
+}

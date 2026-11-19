@@ -1,0 +1,94 @@
+{
+  "taskDefinitionArn":  "arn:aws:ecs:ap-south-1:460835339073:task-definition/bi-report-api-dev:1",
+  "containerDefinitions": [
+    {
+      "name": "bi-report-api",
+      "image": "460835339073.dkr.ecr.ap-south-1.amazonaws.com/bi-report-api-dev:nginx",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "mountPoints": [],
+      "volumesFrom": [],
+      "environment": [
+    {
+      "name": "Api__BasePath",
+      "value": "/bi-report/v1"
+    }, 
+    {
+      "name": "IdentityConfiguration__IdentityUrl",
+      "value": "https://login-shore-develop.synergymarinetest.com/"
+    },
+    {
+      "name": "ASPNETCORE_ENVIRONMENT",
+      "value": "Development"
+    }
+  ],
+      "secrets": [
+    {
+          "name": "AwsS3__AccessKey",
+          "valueFrom": "/dev/aws_s3_access_key"
+        },
+    {
+          "name": "AwsS3__SecretKey",
+          "valueFrom": "/dev/aws_s3_secret_key"
+        }
+   ]
+ }
+],
+  
+
+  "family": "bi-report-api-dev",
+  "taskRoleArn": "arn:aws:iam::460835339073:role/bi-report-api-task-role-dev",
+  "executionRoleArn": "arn:aws:iam::460835339073:role/bi-report-api-execution-role-dev",
+  "networkMode": "awsvpc",
+  "revision": 1,
+  "volumes": [],
+  "status": "ACTIVE",
+  "requiresAttributes": [
+    {
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "name": "ecs.capability.execution-role-awslogs"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "name": "ecs.capability.execution-role-ecr-pull"
+    },
+    {
+      "name": "ecs.capability.secrets.ssm.environment-variables"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "name": "ecs.capability.task-eni"
+    }
+  ],
+  "placementConstraints": [],
+  "compatibilities": [
+    "EC2",
+    "FARGATE"
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "registeredAt": "2022-09-19T04:50:09.272000+05:30",
+  "registeredBy": "arn:aws:iam::460835339073:user/vijayalakshmi.ma@thinkpalm.com"
+}

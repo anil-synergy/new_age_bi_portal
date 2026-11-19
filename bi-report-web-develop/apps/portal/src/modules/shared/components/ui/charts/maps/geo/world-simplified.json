@@ -1,0 +1,45 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "India" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[68, 6], [97, 6], [97, 37], [68, 37], [68, 6]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "United States" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-125, 24], [-66, 24], [-66, 49], [-125, 49], [-125, 24]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "China" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[73, 18], [135, 18], [135, 54], [73, 54], [73, 18]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "United Kingdom" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-8, 49], [2, 49], [2, 59], [-8, 59], [-8, 49]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Singapore" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[103.6, 1.2], [104.1, 1.2], [104.1, 1.5], [103.6, 1.5], [103.6, 1.2]]]
+      }
+    }
+  ]
+}

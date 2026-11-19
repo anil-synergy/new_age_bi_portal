@@ -1,0 +1,88 @@
+
+.card {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+  
+    box-shadow: 0 4px 9px -5px rgba(145, 145, 145, 0.8);
+    margin-bottom: 1.875rem;
+  }
+  
+  .travel-detail-card {
+    box-shadow: 6px 6px 22px 8px rgba(0, 0, 0, 0.1) !important;
+    padding: 10px;
+    border-radius: 16px;
+    margin-bottom: -0.125rem !important;
+    background: #fff;
+    transform: translate(5px, 14px) !important;
+    z-index: 1 !important;
+
+    /* position: absolute;
+    left: 0px;
+    transform: translate(54px, 0px);
+    width: 0px;
+    height: 0px;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 14px solid white;
+    margin-top: 15px; */
+  }
+  
+  .copy-text:not(.active) .initial {
+    opacity: 1;
+  }
+  
+  .copy-text:not(.active) span:not(.initial) {
+    display: none;
+  }
+  .copy-text {
+    padding-right: 8px;
+    padding-left: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    color: black;
+  }
+  .copy-text.active {
+    color: white;
+    background-color: rgba(86, 95, 187, 0.7);
+    border-radius: 1rem;
+  }
+  
+  .copy-text.active .initial {
+    display: none;
+  }
+  
+  .copy-text.active span:not(.initial) {
+    opacity: 1;
+  }
+  
+  .material-icons-filled {
+    font-family: "Material Icons";
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    opacity: 100;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-feature-settings: "liga";
+    font-feature-settings: "liga";
+  }
+  .material-icons-filled.md-large {
+    font-size: 18px;
+  }
+  label > div > div {
+    z-index: 1;
+  }
+  .navigation-staging-change nav .nav-fixed{
+    background-color: #010a03 !important;
+  }
+    
+  .navigation-staging-change nav .bg-primary-100{
+    background-color: #010a03 !important;
+  }

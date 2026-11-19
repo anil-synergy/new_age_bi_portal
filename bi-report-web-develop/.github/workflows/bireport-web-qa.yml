@@ -1,0 +1,49 @@
+name: Bi-Report QA CI
+
+on:
+  push:
+    branches:
+      - qa
+
+jobs:
+  build:
+    runs-on: bi-report-web-dev-qa-10-2-0-27
+    
+#We are using IAM user "git action" Access and Secret keys    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEV_QA }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV_QA }}
+          aws-region: "ap-south-1"
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.18.1'
+      - run: yarn install
+      - run: CI= yarn run build:test
+      
+      - name: Remove previous build files from S3
+        run: aws s3 rm --recursive s3://bi-report-web-qa
+      - name: Deploy app build to S3 bucket
+        run: aws s3 sync ./build s3://bi-report-web-qa       
+
+      # Invalidate Cloudfront (this action)
+      - name: invalidate
+        uses: chetan/invalidate-cloudfront-action@master
+        env:
+          DISTRIBUTION: "E3D731F249RQRQ"
+          PATHS: "/*"
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_DEV_QA }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV_QA }}
+
+      - name: Teams Notification
+        uses: jdcargile/ms-teams-notification@v1.3
+        with:
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+          github-token: ${{ github.token }}
+          ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI_QA }}
+          notification-summary: Vbi-report-web Deployment is ${{ job.status }}
+        if: always()  

@@ -1,0 +1,28 @@
+.welcome-page {
+  background-image: url('../../../../img/welcomeScreen.jpg');
+
+  background-size: cover;
+  color: $c-white;
+  padding: 2.5rem 3rem;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    div:last-child {
+      opacity: 0.8;
+    }
+  }
+}
+
+.support-link {
+  margin-left: 5px;
+  color: inherit;
+}
+

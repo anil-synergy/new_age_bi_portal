@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Synergy.Core.EmailService" Version="1.0.19" />
+    <PackageReference Include="System.DirectoryServices.AccountManagement" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PowerBI.Core\PowerBIPortal.Core.csproj" />
+    <ProjectReference Include="..\PowerBIPortal.Data\PowerBIPortal.Data.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,172 @@
+/* WaveIcon — theme colours live in the SVG gradients (WaveIcon.jsx / waveConfig.js);
+   this file owns layout, layer styling and every animation. */
+
+.wave-icon {
+  --wi-ease: cubic-bezier(0.45, 0.05, 0.25, 1);
+  display: inline-block;
+  width: var(--wi-size, 160px);
+  aspect-ratio: 2 / 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: 0;
+  vertical-align: middle;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.wi-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* ---------- interaction: each line is its own button ---------- */
+
+.wi-line { outline: none; }
+.wi-hit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 22;
+  pointer-events: stroke;
+  cursor: pointer;
+}
+.wi-line:focus-visible .wi-hit { stroke: rgba(31, 156, 216, 0.22); stroke-linecap: round; }
+
+/* ---------- layers ---------- */
+
+.wi-halo,
+.wi-glow,
+.wi-core,
+.wi-highlight,
+.wi-wisp {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.wi-halo { stroke-width: 9; opacity: 0.13; }
+.wi-glow { stroke-width: 4; opacity: 0.38; }
+.wi-wisp { opacity: 0.65; }
+
+.wave-icon[data-theme='dark'] .wi-halo { opacity: 0.3; }
+.wave-icon[data-theme='dark'] .wi-glow { opacity: 0.6; }
+
+/* ---------- continuous flow (left → right, seamless) ----------
+   Each wave's path is periodic, so translating it by exactly one period per
+   loop wraps without a seam. steps() quantises motion to the target fps. */
+
+.wi-flow {
+  animation: wi-flow var(--wi-loop) steps(var(--wi-steps), end) infinite;
+  will-change: transform;
+}
+
+.wi-bob {
+  animation: wi-bob var(--wi-loop-half) steps(var(--wi-half-steps), end) infinite;
+  animation-delay: calc(var(--wi-loop-half) * var(--wi-bobphase, 0) * -1);
+}
+
+.wi-twinkle {
+  animation:
+    wi-flow var(--wi-loop) steps(var(--wi-steps), end) infinite,
+    wi-twinkle var(--wi-loop-half) steps(var(--wi-half-steps), end) infinite;
+  animation-delay: 0ms, calc(var(--wi-loop-half) * var(--wi-bobphase, 0) * -1);
+}
+
+@keyframes wi-flow {
+  from { transform: translateX(0); }
+  to { transform: translateX(var(--wi-p)); }
+}
+
+@keyframes wi-bob {
+  0%, 100% { transform: translateY(-1.2px); }
+  50% { transform: translateY(1.2px); }
+}
+
+@keyframes wi-twinkle {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+.wave-icon[data-paused='true'] .wi-flow,
+.wave-icon[data-paused='true'] .wi-bob,
+.wi-line[data-paused='true'] .wi-flow,
+.wi-line[data-paused='true'] .wi-bob {
+  animation-play-state: paused;
+}
+
+/* ---------- dissolve / restore ----------
+   The mask edge parks off-canvas right (visible) or left (hidden) and sweeps
+   across. Phases: playing → dissolving → dissolved → restoring → playing. The
+   static end states equal the animation end states, so phase swaps never flash. */
+
+.wi-edge { transform: translateX(var(--wi-from)); }
+
+.wi-line[data-phase='dissolved'] .wi-edge { transform: translateX(var(--wi-to)); }
+
+.wi-line[data-phase='dissolving'] .wi-edge {
+  animation: wi-out calc(var(--wi-dissolve) * var(--wi-dur)) var(--wi-ease)
+    calc(var(--wi-dissolve) * var(--wi-dly-out)) both;
+}
+
+.wi-line[data-phase='restoring'] .wi-edge {
+  animation: wi-in calc(var(--wi-dissolve) * var(--wi-dur)) var(--wi-ease)
+    calc(var(--wi-dissolve) * var(--wi-dly-in)) both;
+}
+
+/* wisps drift on and upward as they scatter, and gather back on restore */
+.wi-line[data-phase='dissolving'] .wi-wisps {
+  animation: wi-drift-out calc(var(--wi-dissolve) * var(--wi-dur)) var(--wi-ease)
+    calc(var(--wi-dissolve) * var(--wi-dly-out)) both;
+}
+
+.wi-line[data-phase='dissolved'] .wi-wisps { transform: translate(18px, -6px); }
+
+.wi-line[data-phase='restoring'] .wi-wisps {
+  animation: wi-drift-in calc(var(--wi-dissolve) * var(--wi-dur)) var(--wi-ease)
+    calc(var(--wi-dissolve) * var(--wi-dly-in)) both;
+}
+
+@keyframes wi-out {
+  from { transform: translateX(var(--wi-from)); }
+  to { transform: translateX(var(--wi-to)); }
+}
+
+@keyframes wi-in {
+  from { transform: translateX(var(--wi-to)); }
+  to { transform: translateX(var(--wi-from)); }
+}
+
+@keyframes wi-drift-out {
+  from { transform: translate(0, 0); }
+  to { transform: translate(18px, -6px); }
+}
+
+@keyframes wi-drift-in {
+  from { transform: translate(18px, -6px); }
+  to { transform: translate(0, 0); }
+}
+
+/* ---------- reduced motion: no flow, dissolve becomes a plain cross-fade ---------- */
+
+.wave-icon[data-reduced='true'] .wi-flow,
+.wave-icon[data-reduced='true'] .wi-bob,
+.wave-icon[data-reduced='true'] .wi-twinkle,
+.wave-icon[data-reduced='true'] .wi-edge,
+.wave-icon[data-reduced='true'] .wi-wisps {
+  animation: none !important;
+}
+
+.wave-icon[data-reduced='true'] .wi-edge { transform: translateX(var(--wi-from)); }
+.wave-icon[data-reduced='true'] .wi-wisps { transform: none; }
+
+.wave-icon[data-reduced='true'] .wi-line[data-phase='dissolving'] .wi-body { animation: wi-fade-out var(--wi-fade) ease both; }
+.wave-icon[data-reduced='true'] .wi-line[data-phase='dissolved'] .wi-body { opacity: 0; }
+.wave-icon[data-reduced='true'] .wi-line[data-phase='restoring'] .wi-body { animation: wi-fade-in var(--wi-fade) ease both; }
+
+@keyframes wi-fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes wi-fade-in { from { opacity: 0; } to { opacity: 1; } }

@@ -1,0 +1,265 @@
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  @extend .font-sm;
+
+  &[data-width='wide'] {
+    grid-column: 1/-1;
+  }
+
+  &[data-flow='row'] {
+    flex-direction: row;
+
+    & + & {
+      margin-top: 0.3rem;
+    }
+  }
+
+  label {
+    font-size: inherit;
+  }
+
+  input[type='text'] {
+    min-height: 36px;
+    border: 1px solid $c-grey-800;
+    border-radius: $border-r8;
+    padding: 0.5rem;
+    font-size: inherit;
+    width: 100%;
+
+    & + button {
+      margin-left: 1rem;
+    }
+  }
+}
+
+// common class for input fields
+.input-item {
+  @extend .font-sm;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 0.5rem;
+  position: relative;
+
+  &:has(.help-text) {
+    padding-bottom: 1.05rem;
+  }
+  .help-text {
+    position: absolute;
+    left: 0.7rem;
+    bottom: 0;
+    font-size: 0.75rem; //12px
+    display: none;
+  }
+
+  &.required {
+    .react-select__placeholder {
+      color: $c-reddish-600 !important;
+    }
+
+    .help-text {
+      display: block;
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+    .react-select__control {
+      border-color: $c-grey-400 !important;
+    }
+    .react-select__placeholder {
+      color: $c-grey-400 !important;
+    }
+    .react-select__indicator {
+      opacity: 0.4;
+    }
+  }
+
+  & > input {
+    min-height: 36px;
+    border: 1px solid $c-grey-800;
+    border-radius: $border-r8;
+    padding: 0.5rem;
+    font-size: inherit;
+    width: 100%;
+
+    &[data-size='small'] {
+      height: 28px !important;
+      min-height: unset;
+    }
+  }
+
+  .react-select-wrapper {
+    // min-width: 16rem;
+    .react-select {
+      &__control {
+        min-height: 36px;
+        border: 1px solid $c-grey-800;
+        border-radius: $border-r8;
+
+        &--is-focused {
+          box-shadow: none;
+        }
+      }
+
+      &__input-container {
+        padding-top: 1px;
+        padding-bottom: 1px;
+        margin: 1px 1px 2px 2px;
+      }
+
+      &__indicator {
+        padding: 5px;
+      }
+
+      &__menu-portal {
+        z-index: 999 !important;
+      }
+    }
+  }
+}
+
+.react-select__menu-portal {
+  z-index: 999 !important ;
+}
+
+.secondary-text {
+  .input-item input {
+    border-radius: 0;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    padding-left: 0;
+    padding-block: 0.25rem;
+    min-height: 28px;
+    border-bottom-color: $c-grey-400;
+    &:focus {
+      border-bottom: 1px solid $c-grey-800;
+    }
+  }
+}
+
+.secondary-select {
+  .react-select-wrapper {
+    .react-select {
+      &__control {
+        background-color: $c-grey-100;
+        min-height: 1.25rem;
+        border: none;
+        border-radius: $border-r4;
+
+        &--is-focused {
+          box-shadow: none;
+        }
+      }
+
+      &__input-container {
+        padding-top: 1px;
+        padding-bottom: 1px;
+        margin: 1px 1px 2px 2px;
+      }
+
+      &__indicator {
+        padding: 4px;
+      }
+    }
+  }
+}
+
+//react-select in pagination
+.pagination-select {
+  .input-item {
+    padding-bottom: 0;
+  }
+  .react-select-wrapper {
+    .react-select {
+      &__control {
+        min-height: 20px;
+      }
+
+      &__indicator {
+        padding: 3px;
+      }
+    }
+  }
+}
+
+.checkbox {
+  display: grid;
+  grid-template-columns: 1.5rem auto;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  justify-content: flex-start;
+  cursor: pointer;
+
+  .help-text {
+    position: absolute;
+    left: 2rem;
+    bottom: -0.8125rem;
+  }
+
+  &:hover .checkbox-box {
+    background-color: $c-secondary-200;
+  }
+
+  & > input {
+    appearance: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    left: 0;
+    cursor: pointer;
+
+    &:checked ~ .checkbox-box::before {
+      display: block;
+      transform: scale(1);
+    }
+  }
+
+  .checkbox-box {
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 2px solid $c-grey-800;
+    border-radius: 0.5rem;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+
+    &::before {
+      content: ' ';
+      display: none;
+      transform: scale(0);
+      width: 1rem;
+      height: 0.75rem;
+      background-color: $c-grey-800;
+      clip-path: path(
+        'M13.0228 1.12482C13.5083 0.669331 14.2642 0.669331 14.7497 1.12482C15.281 1.62333 15.281 2.46698 14.7497 2.96549L6.48072 10.7231C5.90363 11.2645 5.00522 11.2645 4.42812 10.7231L1.25009 7.74161C0.718721 7.2431 0.718721 6.39945 1.25009 5.90094C1.7356 5.44545 2.49143 5.44545 2.97694 5.90094L5.11232 7.90428C5.30469 8.08475 5.60416 8.08475 5.79652 7.90428L9.40967 4.51455L13.0228 1.12482Z'
+      );
+    }
+  }
+}
+
+.searchBar {
+  display: flex;
+  gap: 0.5rem;
+  height: 2.2rem;
+  &__search {
+    border: 1px solid $c-grey-400;
+    border-radius: $border-r8;
+    background-color: $c-grey-40;
+    gap: 0.5rem;
+    padding: 0.2rem 0.3rem;
+    display: flex;
+    width: clamp(8rem, 25vw, 30rem);
+  }
+
+  &__search-input {
+    width: 100%;
+    &::placeholder {
+      color: $c-grey-400;
+    }
+  }
+}

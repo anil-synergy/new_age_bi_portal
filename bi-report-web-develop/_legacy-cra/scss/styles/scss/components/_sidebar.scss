@@ -1,0 +1,444 @@
+.sidebar {
+  width: 16.75rem;
+  min-width: 16.75rem;
+  background-color: $c-primary-800;
+  height: 100vh;
+  border-radius: 0 0.5rem 0.5rem 0;
+  padding-block: 2rem 1rem;
+  color: $c-white;
+  --sb-ilp: 0.625rem;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  transform-origin: left;
+  transition: all 0.03s linear;
+
+  &.collapsed {
+    width: 2px;
+    min-width: 2px;
+    background-color: $c-secondary-800;
+    margin-left: 1rem;
+    margin-block: 1rem;
+    height: 95vh;
+    border-radius: 5px;
+    margin-right: 1.5rem;
+    > * {
+      display: none;
+    }
+
+    .sidebar {
+      &__head {
+        display: block;
+      }
+      &__search {
+        display: none;
+      }
+
+      &__sub-head {
+        display: none;
+
+        .search-toggle {
+          display: none;
+        }
+      }
+
+      &__title {
+        display: none;
+      }
+
+      &__control {
+        .hr {
+          display: none;
+        }
+
+        .collapseBtn {
+          right: 0.8rem;
+
+          img {
+            transform: scaleX(-1);
+          }
+        }
+      }
+    }
+  }
+
+  &__head {
+    padding-inline: var(--sb-ilp);
+  }
+
+  &__sub-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    .search-toggle {
+      margin-left: auto;
+      margin-right: 0.5rem;
+      height: 1.5rem;
+    }
+  }
+
+  &__title {
+    cursor: default;
+  }
+
+  // &__search {
+  //   width: 100%;
+
+  //   display: flex;
+  //   align-items: center;
+  //   border: 1px solid $c-secondary-800;
+  //   border-radius: $border-r10;
+  //   padding-block: 0.35rem;
+  //   padding-inline: 0.625rem;
+  //   @extend .font-sm;
+  //   gap: 0.4rem;
+  //   transition: background-color 0.25s ease;
+
+  //   &:focus-within {
+  //     background-color: rgba($c-secondary-800, 0.25);
+  //     box-shadow: 0 0 0.2rem 0 $c-secondary-800;
+
+  //     input {
+  //       opacity: 1;
+  //     }
+  //   }
+
+  //   input {
+  //     transition: opacity 0.25s ease;
+
+  //     opacity: 0.75;
+  //     color: $c-white;
+
+  //     &::placeholder {
+  //       color: currentColor;
+  //     }
+  //   }
+  // }
+
+  &__search {
+    width: 95%;
+    margin-top: 1rem;
+    background-color: rgba($c-secondary-800, 0.2);
+    // display: flex;
+    // align-items: center;
+    border-bottom: 1px solid $c-secondary-800;
+    // border-radius: $border-r10;
+    padding-block: 0.25rem;
+    padding-inline: 0.625rem;
+    @extend .font-sm;
+    // gap: 0.4rem;
+    transition: background-color 0.25s ease;
+
+    &:focus-within {
+      background-color: rgba($c-secondary-800, 0.3);
+      // box-shadow: 0 0 0.2rem 0 $c-secondary-800;
+
+      input {
+        opacity: 1;
+      }
+    }
+
+    input {
+      transition: opacity 0.25s ease;
+
+      opacity: 0.75;
+      color: $c-white;
+
+      &::placeholder {
+        color: currentColor;
+      }
+    }
+  }
+
+  &__control {
+    width: 100%;
+    padding-right: 1rem;
+    margin-block: 1rem;
+    position: relative;
+
+    .hr {
+      width: 100%;
+      height: 1px;
+      background-color: rgba($c-white, 0.15);
+    }
+
+    .collapseBtn {
+      background-color: $c-secondary-800;
+      display: grid;
+      place-content: center;
+      position: absolute;
+      width: 1.375rem;
+      aspect-ratio: 1/1;
+      border-radius: 100%;
+      right: -1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+
+      &:focus {
+        outline: none;
+      }
+
+      img {
+        transform: translateX(-1px);
+      }
+    }
+  }
+
+  &__user {
+    width: calc(100% - 2rem);
+    background-color: $c-primary-600;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    border-radius: $border-r8;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    justify-content: space-between;
+
+    .user-dp {
+      width: 3.25rem;
+      aspect-ratio: 1;
+      display: grid;
+      place-content: center;
+      background-color: $c-primary-800;
+      border-radius: 100%;
+      @extend .f-bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .user-settings {
+      width: 1.75rem;
+      aspect-ratio: 1;
+      background-color: $c-white;
+      border-radius: $border-r10;
+      display: grid;
+      place-content: center;
+
+      &:focus {
+        outline: none;
+      }
+
+      img {
+        transition: transform 0.2s ease;
+      }
+      &:hover {
+        img {
+          transform: rotate(45deg);
+        }
+      }
+
+      &:has(.context-menu) {
+        background-color: rgba($c-white, 0.5);
+        img {
+          transform: rotate(45deg);
+        }
+      }
+
+      .context-menu {
+        // bottom: 2.75rem;
+        top: auto;
+        bottom: 1.75rem;
+
+        right: 0;
+      }
+    }
+  }
+}
+
+.menu {
+  overflow-y: auto;
+  flex: 1;
+
+  &__group {
+    padding-block: 0.5rem;
+
+    + .menu__group {
+      margin-top: 0.5rem;
+    }
+  }
+
+  &__group-head {
+    @extend .uppercase;
+    @extend .font-xs;
+
+    font-family: $font-secondary;
+    opacity: 0.5;
+    margin-bottom: 0.5rem;
+    padding-inline: var(--sb-ilp);
+  }
+
+  &__list-item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-block: 0.3rem;
+    padding-inline: 1.25rem;
+    color: $c-white;
+
+    &:has(.menu__item-icon) {
+      padding-left: 0.25rem;
+      padding-block: 0.1rem;
+    }
+
+    // & + :has(.menu__sublist){
+    //     .menu__item-control button img{
+    //         transform: scaleY(-1);
+    //     }
+    // }
+
+    @extend .font-sm;
+
+    // This is for the menu group (with chevron)
+    &.active,
+    &:hover {
+      background-color: rgba($c-secondary-800, 0.2);
+      .menu-chev-toggle {
+        opacity: 1;
+      }
+      .menu__item-control {
+        img {
+          opacity: 1;
+        }
+      }
+
+      .menu__item-icon {
+        img {
+          opacity: 1;
+        }
+      }
+
+      .menu__item-name {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__item-name {
+    color: currentColor;
+    flex: 1;
+    text-align: left;
+    padding-block: 0.3rem;
+    line-height: 1.4;
+    word-break: break-word;
+    opacity: 0.7;
+  }
+
+  &__item-icon {
+    &:has(img) {
+      width: 2.5rem;
+    }
+
+    &--hierarchy {
+      box-sizing: border-box;
+      width: max-content;
+      min-width: calc(0.875rem + var(--menu-indent, 0));
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: var(--menu-indent, 0);
+      padding-right: 0.5rem;
+
+      &:has(img) {
+        width: max-content;
+      }
+    }
+  }
+
+  img:not(.menu__hierarchy-img) {
+    width: 100%;
+    opacity: 0.6;
+  }
+
+  &__hierarchy-img,
+  &__item-icon--hierarchy .menu__hierarchy-img,
+  &__item-icon--hierarchy > img {
+    width: 0.875rem;
+    height: 0.875rem;
+    max-width: 0.875rem;
+    flex-shrink: 0;
+    display: block;
+    opacity: 0.7;
+  }
+
+  &__item-control {
+    margin-left: auto;
+    display: flex;
+    // padding-inline: 0.5rem;
+
+    img {
+      transition: transform 0.15s linear;
+    }
+  }
+
+  &__sublist {
+    .menu {
+      &__list-item {
+        padding-left: 3rem;
+
+        // Show star while hovering the menu div
+        &:hover {
+          .menu__star-icon {
+            opacity: 0.6;
+          }
+        }
+
+        // Hide star even when the div is active
+        &.active {
+          .menu__star-icon {
+            opacity: 0;
+          }
+
+          &:hover {
+            .menu__star-icon {
+              opacity: 0.8;
+            }
+          }
+        }
+
+        // Show star even when there is no active class || add only for the starred items
+        // &.starred {
+        //   .menu__star-icon {
+        //     opacity: 0.6;
+        //   }
+        // }
+
+        .menu__star-icon {
+          opacity: 0.8;
+        }
+      }
+
+      &__item-name {
+        opacity: 0.75;
+        color: currentColor;
+        word-break: break-word;
+      }
+
+      &__item-control {
+        .menu__star-icon {
+          opacity: 0;
+          padding-inline: 0.1rem;
+          padding-block: 0.3rem;
+
+          &.starred {
+            opacity: 0.6;
+          }
+
+          &:hover {
+            opacity: 1 !important;
+          }
+        }
+      }
+    }
+  }
+}
+.menu-chev-toggle {
+  transform: rotate(180deg);
+}
+
+.menu__list-item .menu__star-icon-image {display: none;}
+.menu__list-item:hover .menu__star-icon-image {display: block;}
+.menu__list-item .menu__star-icon.starred .menu__star-icon-image {display: block !important;}
+

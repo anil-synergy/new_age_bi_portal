@@ -1,0 +1,82 @@
+on:
+  push:
+    branches:
+      - develop
+    
+      
+name: Deploy to Amazon ECS Cluster - common-apps-dev-test
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: bi-report-api-dev-qa-10-2-0-27
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+#We are using dev/test IAM user "git action" Access and Secret Credentials
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEV_QA }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
+        aws-region: ap-south-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build, tag, and push bi-report-api into Amazon ECR
+      id: build-image
+      env:
+        ECR_REGISTRY: 460835339073.dkr.ecr.ap-south-1.amazonaws.com
+        ECR_REPOSITORY: bi-report-api-dev
+        IMAGE_TAG: ${{ github.sha }}
+        REGION: ap-south-1  
+        ECS_CLUSTER: common-apps-dev-test
+        SERVICE_NAME: bi-report-api
+        
+      run: |
+        # Build a docker container and
+        # push it to ECR so that it can
+        # be deployed to ECS.
+        cd ./PowerBi/PowerBI.Api/
+        echo "$(pwd)"
+        docker build -f Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG  ../.
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
+    - name: Fill in the new image ID in the Amazon ECS task definition
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: PowerBi/PowerBI.Api/task-definitions/develop.json
+        container-name: bi-report-api
+        image: ${{ steps.build-image.outputs.image }}
+
+    - name: Deploy Amazon ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: bi-report-api
+        cluster: common-apps-dev-test
+        
+  #  - name: Slack Notification
+  #    uses: 8398a7/action-slack@v3
+  #    with:
+  #      status: ${{ job.status }}
+  #      fields: repo,message,commit,author,action,eventName,ref,workflow,job,took 
+  #    env:
+  #      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_DEV }} 
+  #    if: always()
+
+    - name: Teams Notification
+      uses: jdcargile/ms-teams-notification@v1.3
+      with:
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+          github-token: ${{ github.token }}
+          ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI_DEV }}
+          notification-summary: bi-report-api Deployment is ${{ job.status }}
+    if: always()  
+        

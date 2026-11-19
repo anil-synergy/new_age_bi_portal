@@ -1,0 +1,9 @@
+.table-pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .pagination-number {
+    max-width: 4rem;
+  }
+}

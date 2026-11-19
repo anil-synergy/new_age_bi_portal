@@ -1,0 +1,17 @@
+{
+  "id": "2026-11-fleet-count-ontology",
+  "author": "analyst@synergyship.com",
+  "reason": "Handymax/SPPL/fleet-count questions were routed to Maersk Tankers; ontology + enriched catalog boost Fleet Count Vessel Portal.",
+  "glossary_add": [
+    {"term": "fleet count", "synonyms": ["fleet size", "no of vessels", "number of vessels", "vessel portal"], "domain": "fleet operations"},
+    {"term": "vessel subtype", "synonyms": ["handymax", "vessel sub type"], "domain": "fleet operations"},
+    {"term": "technical manager", "synonyms": ["sppl", "manager group"], "domain": "fleet operations"}
+  ],
+  "eval_cases_add": [
+    {
+      "question": "find no of handymax vessel sub type tankers in sppl for the month oct 2026",
+      "expect": "Fleet Count Vessel Portal"
+    }
+  ],
+  "settings": {}
+}

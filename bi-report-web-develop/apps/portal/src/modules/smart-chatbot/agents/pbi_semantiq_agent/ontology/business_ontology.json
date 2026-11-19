@@ -1,0 +1,147 @@
+{
+  "version": "2026-11-14.3",
+  "concepts": [
+    {
+      "id": "vessel_identifier",
+      "definition": "Stable unique vessel key (IMO or equivalent), not display name.",
+      "aliases": ["imo", "vessel id", "vessel identifier"],
+      "excluded_aliases": ["vessel name", "ship name"],
+      "semantic_type": "identifier",
+      "column_allow_names": ["IMO", "IMO_NUMBER", "IMO No", "VESSEL_IMO", "Vessel IMO"]
+    },
+    {
+      "id": "vessel_type",
+      "definition": "Vessel category such as Tanker or Bulk Carrier (not Handymax size class).",
+      "aliases": [
+        "tanker",
+        "tankers",
+        "bulk carrier",
+        "bulk",
+        "vessel type",
+        "ship type",
+        "ships",
+        "vessels",
+        "carrier",
+        "carriers",
+        "cable layer",
+        "container",
+        "gas carrier",
+        "general cargo",
+        "ro-ro",
+        "roro"
+      ],
+      "excluded_aliases": ["handymax", "panamax"],
+      "semantic_type": "filter",
+      "column_allow_names": ["VESSEL_TYPE", "TYPE", "Ship Type", "VESSEL_CATEGORY"]
+    },
+    {
+      "id": "vessel_subtype",
+      "definition": "Commercial/size class such as Handymax, not report visual type grouping.",
+      "aliases": ["handymax", "panamax", "supramax", "handysize", "sub type", "subtype", "vessel subtype", "size group"],
+      "excluded_aliases": ["type group"],
+      "semantic_type": "filter",
+      "column_allow_names": ["SUB_TYPE", "VESSEL_SUB_TYPE", "Size Group", "Subtype", "VESSEL_SIZE"]
+    },
+    {
+      "id": "owner_company",
+      "definition": "Registered or commercial owner of the vessel (not technical manager).",
+      "aliases": ["owner", "ship owner", "registered owner"],
+      "excluded_aliases": ["manager", "manager group", "sppl", "technical manager"],
+      "semantic_type": "filter",
+      "column_allow_names": ["OWNER", "OWNER_NAME", "REGISTERED_OWNER", "SHIP_OWNER"]
+    },
+    {
+      "id": "manager_company",
+      "definition": "Technical or commercial manager code (e.g. SPPL). Not the same as Owner.",
+      "aliases": ["sppl", "technical manager", "doc", "document of compliance", "doc holder", "vessel manager"],
+      "excluded_aliases": ["owner", "registered owner"],
+      "semantic_type": "filter",
+      "column_allow_names": ["MANAGER_GROUP", "DOC", "MANAGER", "MANAGER_NAME", "TECH_MANAGER"]
+    },
+    {
+      "id": "vessel_deadweight",
+      "definition": "Vessel deadweight tonnage (DWT). Used as a filter or as a vessel attribute, never as a count.",
+      "aliases": ["dwt", "deadweight", "dead weight", "deadweight tonnage"],
+      "excluded_aliases": [],
+      "semantic_type": "filter",
+      "column_allow_names": ["DWT", "DEADWEIGHT", "DEAD_WEIGHT", "DEADWEIGHT_TONNES"]
+    },
+    {
+      "id": "fleet_count",
+      "definition": "Count of distinct vessels in scope (fleet size, number of vessels).",
+      "aliases": [
+        "fleet count",
+        "fleet size",
+        "number of vessels",
+        "no of vessels",
+        "vessel count",
+        "how many vessels",
+        "number of ships",
+        "how many ships",
+        "no of ships",
+        "vessel portal",
+        "fleet count vessel portal"
+      ],
+      "excluded_aliases": [],
+      "semantic_type": "kpi",
+      "measure_allow_names": ["Fleet Size", "No. of Vessels", "Vessel Count", "DISTINCTCOUNT"]
+    },
+    {
+      "id": "incident",
+      "definition": "Safety or quality occurrence (incident, near miss, dangerous occurrence).",
+      "aliases": ["incident", "incidents", "near miss", "occurrence", "dangerous occurrence"],
+      "excluded_aliases": [],
+      "semantic_type": "kpi",
+      "measure_allow_names": ["Incident Count", "Count of Incidents", "Total Incidents", "No of Incidents"]
+    },
+    {
+      "id": "incident_date",
+      "definition": "Date the incident occurred (event date), not reported or closed date unless the user says reported.",
+      "aliases": ["incident date", "date of incident", "occurrence date", "event date"],
+      "excluded_aliases": ["reported date", "closed date", "created date"],
+      "semantic_type": "time",
+      "column_allow_names": ["DATE_OF_INCIDENT", "INCIDENT_DATE", "OCCURRENCE_DATE", "EVENT_DATE", "Date"]
+    },
+    {
+      "id": "vessel_name",
+      "definition": "Display name of the vessel (not the stable IMO key).",
+      "aliases": ["vessel name", "ship name", "vessel name filter"],
+      "excluded_aliases": [],
+      "semantic_type": "filter",
+      "column_allow_names": ["VESSEL_NAME", "SHIP_NAME", "VESSEL", "Name", "VESSEL NAME"]
+    },
+    {
+      "id": "vessel_handover_date",
+      "definition": "Date the vessel was handed over to technical management.",
+      "aliases": ["handover", "handover date", "hand over", "hand over date"],
+      "excluded_aliases": [],
+      "semantic_type": "time",
+      "column_allow_names": ["HANDOVER_DATE", "DATE_OF_HANDOVER", "HANDOVER", "Handover Date"]
+    },
+    {
+      "id": "vessel_takeover_date",
+      "definition": "Date the vessel was taken over by the manager.",
+      "aliases": ["takeover", "takeover date", "take over", "take over date"],
+      "excluded_aliases": [],
+      "semantic_type": "time",
+      "column_allow_names": ["TAKEOVER_DATE", "DATE_OF_TAKEOVER", "TAKEOVER", "Takeover Date"]
+    },
+    {
+      "id": "reporting_period",
+      "definition": "Calendar month or period for snapshots and incident reporting.",
+      "aliases": ["oct 2026", "october 2026", "month", "period", "as of"],
+      "excluded_aliases": [],
+      "semantic_type": "time",
+      "column_allow_names": [
+        "DATE_OF_INCIDENT",
+        "INCIDENT_DATE",
+        "OCCURRENCE_DATE",
+        "MY_DATE",
+        "DATE",
+        "SNAPSHOT_DATE",
+        "Month",
+        "PERIOD"
+      ]
+    }
+  ]
+}

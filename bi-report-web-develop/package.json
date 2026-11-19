@@ -1,0 +1,15 @@
+{
+  "name": "synergy-bi-portal",
+  "version": "1.0.0",
+  "license": "Proprietary",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix apps/portal",
+    "build": "npm run build --prefix apps/portal",
+    "start": "npm run start --prefix apps/portal",
+    "lint": "npm run lint --prefix apps/portal",
+    "legacy:start": "yarn run style:build && env-cmd -f .env.localhost craco start",
+    "legacy:build": "craco build",
+    "style:build": "tailwind build _legacy-cra/styles/tailwind.pcss -o _legacy-cra/styles/tailwind.css"
+  }
+}

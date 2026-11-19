@@ -1,0 +1,47 @@
+
+.select_menu {
+  z-index: 50 !important;
+}
+
+.select_input {
+  min-width: 228px;
+  input {
+    box-shadow: none !important;
+  }
+}
+
+.select_input_small {
+  min-width: 150px;
+  input {
+    box-shadow: none !important;
+  }
+}
+
+.select_control {
+  border-radius: 10px !important;
+  height: 3rem !important;
+  // font-size: 14px !important;
+  font-weight: 700 !important;
+  border: 1px solid $gray-500 !important;
+  &.select_control_disabled {
+    border: 1px solid $gray-100 !important;
+    background: $gray-50 !important;
+    color: $gray-100 !important;
+  }
+  &.select_control_multi {
+    height: auto !important;
+    min-height: 3rem !important;
+  }
+}
+
+.custom_select_conrol {
+  border-radius: 0.25rem !important;
+  border: 1px solid #c4c4c4 !important;
+  box-sizing: border-box !important;
+  min-height: 42px !important;
+  &.select_control_disabled {
+    border: 1px solid $gray-100 !important;
+    background: $gray-50 !important;
+    color: $gray-100 !important;
+  }
+}

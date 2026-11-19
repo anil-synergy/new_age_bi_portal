@@ -1,0 +1,15 @@
+# Secrets: only the .env.example templates are committed.
+.env
+.env.*
+!.env.example
+
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+.pytest_cache/
+
+# Runtime analytics and checkpoints (user questions; never committed).
+.data/
+learning/audit/

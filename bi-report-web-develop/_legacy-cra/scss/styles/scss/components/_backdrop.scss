@@ -1,0 +1,9 @@
+.backdrop {
+  position: fixed;
+  width: 100vw;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 205;
+  background-color: rgba($c-black, 0.2);
+}

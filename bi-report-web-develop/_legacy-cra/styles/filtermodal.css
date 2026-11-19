@@ -1,0 +1,68 @@
+.filter-details-card{
+    max-width: 600px;
+    min-height: 350px;
+    border-radius: 15px;
+    border: 1px solid #4A4A4A;
+    overflow: auto;    
+}
+.custom-filterdiv {
+    position: absolute;
+    margin-top: 120px;
+    margin-left: 250px;
+    border-radius: 15px;
+}
+.filter-div {
+    height: 285px;
+    margin-right: 0;
+    /* padding-right: 5px; */
+    overflow-y: scroll;
+}
+.footer-filter {
+    margin-top: 10px;
+    align-self: end;
+}
+.css-4ljt47-MenuList {
+    overflow-y: scroll;
+}
+.filter-details-card .w-80 {
+    width: 15rem;
+}
+.w-80.react-select-container.category1  {
+    width: 198%;
+}
+label {
+    color: #4A4A4A !important;
+}
+#filtermodal  .react-responsive-modal-container {
+    height: auto;
+}
+
+ .filter-div::-webkit-scrollbar {
+    width: 5px; 
+    height: 5px;
+  }
+ .filter-div::-webkit-scrollbar-track {
+    background: #fff !important;
+    box-shadow: none;
+  }
+ .filter-div::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+    box-shadow: none;
+  }
+ .filter-div::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  }
+  .react-select__menu, .css-12jo7m5 {
+    text-transform: capitalize;
+  }
+  .crewcode.w-35 {
+    width: 9.5rem;
+  }
+ .review .css-12jo7m5, .review .css-xb97g8 {
+    background: #E9EAF3;
+    font-size: small;
+  }
+  .review .react-select__value-container {
+    font-size: small;
+  }

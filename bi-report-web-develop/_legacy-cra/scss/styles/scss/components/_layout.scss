@@ -1,0 +1,41 @@
+.main-wrap {
+  display: flex;
+  // gap: 1.75rem;
+}
+
+.report-wrap {
+  flex: 1;
+  padding-right: 14px; // adjust padding at the right size of report
+  overflow-y: auto;
+  position: relative;
+}
+
+.link {
+  color: $c-secondary-800;
+  cursor: pointer;
+}
+
+.wait-message {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+  background-color: $c-white;
+  padding: 1rem 2rem;
+  border-radius: $border-r8;
+}
+
+.report-layout-one {
+  padding: 1rem 1.8rem 0 2rem;
+
+  &.manage {
+    display: flex;
+    flex-direction: column;
+
+    .table-pagination {
+      justify-content: center;
+      padding-block: 1rem;
+    }
+  }
+}

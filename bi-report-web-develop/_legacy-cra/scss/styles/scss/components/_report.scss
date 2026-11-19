@@ -1,0 +1,67 @@
+.report-content {
+  //  height: 100%;
+  width: 100%;
+  height: calc(100vh - 0.75rem);
+  width: 100%;
+
+  & > iframe {
+    border: 0;
+  }
+}
+.report-print {
+  // margin: 20px 20px;
+  display: flex;
+  position: fixed;
+  margin-right: -3px;
+  right: 0;
+ 
+  .report-print_btn {
+    min-width: 190px !important;
+    max-width: 190px !important;
+  }
+}
+.dowload-pdf-loader {
+  display: flex;
+  span {
+    min-width: 17px;
+    width: 17px !important;
+    height: 17px !important;
+    margin-right: 6px !important;
+  }
+}
+
+.dowload-icon {
+  width: 14px;
+  // margin-right: 6px !important;
+}
+
+.dowload-btn {
+  display: flex;
+  justify-content: center;
+    align-items: center;
+    padding: 2px;
+  .download-box{
+    display: flex;
+    background-color: rgb(255, 182, 10);
+    padding: 8px;
+    border-radius: 30px 0% 0% 30px;
+    box-shadow: 1px 1px 5px #e2e2e2;
+  }
+}
+
+.dowload-btn span {
+  max-width: 0;
+  transition: max-width .3s;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  overflow: hidden;
+  font-weight: 500;
+  font-size: 12px;
+  // text-transform: uppercase;
+
+}
+.dowload-btn:hover span {
+  max-width: 7.5rem;
+  margin-left: 6px;
+}

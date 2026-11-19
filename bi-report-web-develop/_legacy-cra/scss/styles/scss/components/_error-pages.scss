@@ -1,0 +1,31 @@
+.error-wrap {
+  height: 100vh;
+  background-color: $c-secondary-200;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  color: $c-grey-800;
+
+  img {
+    margin-bottom: 2.5rem;
+  }
+
+  & > * + * + * {
+    margin-top: 0.5rem;
+  }
+
+  &.error-403 {
+    background-color: $c-primary-600;
+    color: $c-white;
+
+    .link {
+      color: inherit;
+    }
+  }
+
+  .link {
+    color: $c-secondary-800;
+    text-decoration: underline;
+    margin-top: 1.5rem;
+  }
+}
